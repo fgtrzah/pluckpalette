@@ -20,5 +20,3 @@ def test_pick_colors():
     for i, e in fixtures:
         r = True  # replace with correct vals
         assert r == e, f"FAILED: Expected {e} received {r}"
-
-    assert True == True
