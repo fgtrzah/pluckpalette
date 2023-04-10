@@ -4,13 +4,13 @@ import numpy as np
 from sklearn.cluster import KMeans
 
 
-def path_to_vec(path):
+def path_to_vec(path) -> np.ndarray:
     return np.array(Image.open(path))
 
 
-def pluck_colors(vec, numColors):
-    vec = vec.reshape(-1, 3)
-    model = KMeans(n_clusters=numColors).fit(vec)
+def pluck_colors(vec, num_colors) -> np.ndarray:
+    vec = vec.reshape(-1, num_colors)
+    model = KMeans(n_clusters=num_colors).fit(vec)
     return model.cluster_centers_
 
 
