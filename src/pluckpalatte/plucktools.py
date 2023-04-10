@@ -4,31 +4,18 @@ import numpy as np
 from sklearn.cluster import KMeans
 
 
-def path_to_img_array(path):
-    """
-    Load image into numpy array
-    """
-    img = Image.open(path)
-    vec = np.array(img)
-    return vec
+def path_to_vec(path):
+    return np.array(Image.open(path))
 
 
-def pick_colors(vec, numColors):
-    """
-    Do k-means clustering over ``vec`` to return ``numColors``
-    """
+def pluck_colors(vec, numColors):
     vec = vec.reshape(-1, 3)
     model = KMeans(n_clusters=numColors).fit(vec)
     return model.cluster_centers_
 
 
-def show_key_colors(colorList):
-    """
-    Make a long rectangle, composed of the colors
-    detailed in colorList, a list of (R, G, B) tuples
-    """
+def pluck_theme_from_colors(colorList):
     n = len(colorList)
-
     im = Image.new("RGBA", (100 * n, 100))
     draw = ImageDraw.Draw(im)
 
