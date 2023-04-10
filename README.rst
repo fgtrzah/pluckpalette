@@ -30,7 +30,7 @@
 |
 
 ============
-pluckpalatte
+pluckpalette
 ============
 
 
