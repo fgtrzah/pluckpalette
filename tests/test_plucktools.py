@@ -31,9 +31,19 @@ def prep_fixtures_pluck_colors(**kwargs):
     return zip(inputs, expected)
 
 
-def prep_fixtures_pluck_main_colors(**_kwargs):
+def prep_fixtures_pluck_main_colors(**kwargs):
+    image_paths = ["tests/data/01.png", "tests/data/02.png"]
     inputs = []
+
+    for path in image_paths:
+        vec = path_to_vec(path)
+        inputs.append(vec)
+
     expected = []
+
+    for i in inputs:
+        color = pluck_colors(i)
+        expected.append(list(pluck_theme_from_colors(color)["colors"]))
 
     return zip(inputs, expected)
 
@@ -59,27 +69,34 @@ def test_pluck_colors():
             for d in re_diff:
                 for d_val in d:
                     assert (
-                        d_val <= 3.0
+                        abs(d_val) <= 1
                     ), f"FAILED QUALITATIVE: Expected diff to be under 3.0 received {d_val}"
         else:
             assert True
 
 
-@pytest.mark.skip(reason="TODO: implement")
 def test_pluck_main_colors():
     fixtures = prep_fixtures_pluck_main_colors()
 
     for i, e in fixtures:
-        r = True  # replace with correct vals
-        assert r == e, f"FAILED: Expected {e} received {r}"
+        r = pluck_theme_from_colors(list(pluck_colors(i, num_colors=4)))
+        flash_assert_msg = lambda a, b: f"FAILED: Expected r: {a} to equal e: {b} "
+
+        try:
+            assert list(r["colors"]) == e, flash_assert_msg(r, e)
+        except:
+            re_diff = np.subtract(list(r["colors"]), e)
+
+            for d_vals in re_diff:
+                for d_val in d_vals:
+                    assert d_val <= 3.0, flash_assert_msg(r, e)
+
+
+def test_main():
+    test_path_to_vec()
+    test_pluck_colors()
+    test_pluck_main_colors()
 
 
 if __name__ == "__main__":
-    # test_path_to_vec()
-    print(test_pluck_colors())
-
-    # fixtures = prep_fixtures_pluck_colors()
-    # inputs, expected = fixtures.values()
-
-    # print('INPUTS: ', len(inputs))
-    # print('EXPECTED: ', len(expected))
+    test_main()

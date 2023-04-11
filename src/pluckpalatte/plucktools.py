@@ -1,3 +1,4 @@
+from typing import Optional
 from PIL import Image, ImageDraw
 
 import numpy as np
@@ -5,8 +6,7 @@ from numpy import ndarray as NDArray
 from sklearn.cluster import KMeans
 
 
-def path_to_vec(path, **kwargs) -> NDArray:
-
+def path_to_vec(path) -> NDArray:
     return np.array(Image.open(path, mode="r", formats=["PNG"]))
 
 
@@ -16,21 +16,22 @@ def pluck_colors(vec, num_colors=4) -> NDArray:
     return model.cluster_centers_
 
 
-def pluck_theme_from_colors(color_list) -> Image:
+def pluck_theme_from_colors(color_list):
     n = len(color_list)
-    im = Image.new("RGBA", (100 * n, 100))
-    draw = ImageDraw.Draw(im)
+    im = Image.new("RGBA", (10 * n, 10))
+    draw = ImageDraw.Draw(im, mode="RGBA")
+    colors = []
 
     for idx, color in enumerate(color_list):
         color = tuple([int(x) for x in color])
         draw.rectangle(
             [(100 * idx, 0), (100 * (idx + 1), 100 * (idx + 1))], fill=tuple(color)
         )
+        colors.append(color)
 
-    return im
+    return {"im": im, "colors": get_theme_representation(colors)}
 
 
-#
-# def avg_rgb(vec):
-#     fn = lambda arr, i: int(np.average(arr))
-#     return fn(vec, 0), fn(vec, 1), fn(vec, 2)
+def get_theme_representation(colors_list):
+    res = sorted(colors_list, key=lambda x: x[0])
+    return res
