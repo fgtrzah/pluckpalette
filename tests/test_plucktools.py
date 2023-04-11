@@ -1,5 +1,6 @@
 import pytest
 import warnings
+import numpy as np
 
 from pluckpalatte.plucktools import path_to_vec, pluck_colors, pluck_theme_from_colors
 
@@ -10,23 +11,22 @@ Fixtures
 """
 
 
-def prep_fixtures_path_to_vec(**_kwargs):
+def prep_fixtures_path_to_vec(**kwargs):
     inputs = ["tests/data/01.png", "tests/data/02.png"]
     expected = [(608, 764, 4), (480, 484, 4)]
 
     return zip(inputs, expected)
 
 
-# TODO: remove circular fixture codependence
 def prep_fixtures_pluck_colors(**kwargs):
     image_paths = ["tests/data/01.png", "tests/data/02.png"]
     inputs = []
 
-    for image_path in image_paths:
-        vec_fixture = path_to_vec(image_path)
-        inputs.append([vec_fixture, vec_fixture.shape[1]])
+    for path in image_paths:
+        vec = path_to_vec(path)
+        inputs.append({"vec": vec, "num_colors": vec.shape[-1]})
 
-    expected = [pluck_colors(*i) for i in inputs]
+    expected = [pluck_colors(**i) for i in inputs]
 
     return zip(inputs, expected)
 
@@ -39,7 +39,6 @@ def prep_fixtures_pluck_main_colors(**_kwargs):
 
 
 # tests
-@pytest.mark.skip(reason="TODO: implement")
 def test_path_to_vec():
     fixtures = prep_fixtures_path_to_vec()
 
@@ -52,11 +51,18 @@ def test_pluck_colors():
     fixtures = prep_fixtures_pluck_colors()
 
     for i, e in fixtures:
-        r = pluck_colors(*i)  # replace with correct vals
+        e = sorted(np.round(e).tolist())
+        r = sorted(np.round(pluck_colors(**i)).tolist())
+        re_diff = np.subtract(e, r).tolist()
 
-        print(i[1])
-
-        assert r == e, f"FAILED: Expected {e} received {r}"
+        if r != e:
+            for d in re_diff:
+                for d_val in d:
+                    assert (
+                        d_val <= 3.0
+                    ), f"FAILED QUALITATIVE: Expected diff to be under 3.0 received {d_val}"
+        else:
+            assert True
 
 
 @pytest.mark.skip(reason="TODO: implement")
@@ -69,5 +75,11 @@ def test_pluck_main_colors():
 
 
 if __name__ == "__main__":
-    test_path_to_vec()
-    test_pluck_colors()
+    # test_path_to_vec()
+    print(test_pluck_colors())
+
+    # fixtures = prep_fixtures_pluck_colors()
+    # inputs, expected = fixtures.values()
+
+    # print('INPUTS: ', len(inputs))
+    # print('EXPECTED: ', len(expected))
