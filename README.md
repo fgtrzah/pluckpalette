@@ -8,10 +8,10 @@ CLI tool that returns dominant colors given a local path to an image or url.
 
 
 ##### TOC
-- [- tools](#tools)
-- [- acknowledgements](#acknowledgements)
-- [- artwork](#artwork)
-- [- misc notes](#misc-notes)
+- [tools](#tools)
+- [acknowledgements](#acknowledgements)
+- [artwork](#artwork)
+- [misc notes](#misc-notes)
 
 
 #### Tools
@@ -32,7 +32,7 @@ Test images, prior art, and inspo.
 
 #### Artwork
 - [Micha Huigen](https://www.michahuigen.com/)
-- []
+- [The README Project](https://github.com/readme)
 
 
 #### Misc Notes
