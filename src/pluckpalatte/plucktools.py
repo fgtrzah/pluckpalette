@@ -30,6 +30,7 @@ def pluck_theme_from_colors(color_list) -> Image:
     return im
 
 
-def avg_rgb(vec):
-    fn = lambda arr, i: int(np.average(arr))
-    return fn(vec, 0), fn(vec, 1), fn(vec, 2)
+#
+# def avg_rgb(vec):
+#     fn = lambda arr, i: int(np.average(arr))
+#     return fn(vec, 0), fn(vec, 1), fn(vec, 2)
