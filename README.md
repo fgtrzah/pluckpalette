@@ -36,4 +36,5 @@ Test images, prior art, and inspo.
 
 
 #### Misc Notes
-.venv is unnecessary as .tox/{env}/bin/activate already contains several different venvs
+- .venv is unnecessary as .tox/{env}/bin/activate already contains several different venvs
+- Have better badge management
