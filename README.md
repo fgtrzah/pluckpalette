@@ -1,5 +1,5 @@
 #### Status
-![tests](https://github.com/figtreez/pluckpalette/actions/workflows/tests.yml/badge.svg)
+<!-- ![tests](https://github.com/figtreez/pluckpalette/actions/workflows/tests.yml/badge.svg) -->
 
 
 ## 🎨🪄 pluck-palette 🪄🎨
