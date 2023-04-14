@@ -6,18 +6,29 @@
 
 CLI tool that returns dominant colors given a local path to an image or url.
 
-#### Demo
-
-<img alt="Welcome to VHS" src="https://github.com/figtreez/pluckpalette/tests/data/demo.gif" width="600" />
-
-![Demo](https://github.com/figtreez/pluckpalette/tests/data/demo.gif)
-
 ##### TOC
 
+- [demo](#demo)
+- [setup](#setup)
 - [tools](#tools)
 - [acknowledgements](#acknowledgements)
 - [artwork](#artwork)
 - [misc notes](#misc-notes)
+
+#### Demo
+
+<img alt="Welcome to VHS" src="https://github.com/figtreez/pluckpalette/tests/data/demo.gif" width="600" />
+
+#### Setup
+
+```bash
+#!/bin/bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requirements.txt
+# `python3 -m tox -e {envname}` for specific tox pyenv environments (see tox.ini)
+python3 -m tox
+```
 
 #### Tools
 
