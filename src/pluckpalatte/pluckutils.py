@@ -17,7 +17,7 @@ def path_to_vec(path: str) -> NDArray:
 
 def pluck_colors(vec, num_colors=4) -> NDArray:
     vec = vec.reshape(-1, num_colors)
-    model = KMeans(n_clusters=num_colors).fit(vec)
+    model = KMeans(n_clusters=num_colors, n_init="auto").fit(vec)
     return model.cluster_centers_
 
 
@@ -59,7 +59,7 @@ def validate_file(f):
     return f
 
 
-def get_parser():
+def get_parsed_args():
     """
     TODO: change design to utilize
     args obj model -> docstring
@@ -70,49 +70,39 @@ def get_parser():
         description=ARG_DESC, formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument(
+        "-p",
         "--path",
-        type=Path,
-        default=Path(__file__).absolute(),
-        help="Posix path to image",
+        dest="filename",
+        required=False,
+        type=validate_file,
+        help="input file",
+        metavar="FILE",
     )
     parser.add_argument(
         "--url",
         type=str,
         default=None,
+        required=False,
         help="Url to image",
     )
-    parser.add_argument(
-        "-i",
-        "--input",
-        dest="filename",
-        required=True,
-        type=validate_file,
-        help="input file",
-        metavar="FILE",
-    )
 
-    return parser
+    return parser.parse_args()
 
 
 def main():
-    import sys
-
-    # get cli args
-    raw_argv = sys.argv[1:]
-    p = get_parser()
-    args = p.parse_args(args=raw_argv)
-
     try:
-        # get file path
-        args = p.parse_args()
+        import sys
 
+        # get cli args
+        args = get_parsed_args()
         # translate path to vector
-        vec = path_to_vec(f"{Path(__file__).parent}/{args.path}")
-        conf = list(pluck_colors({"vec": vec, "num_colors": vec.shape[-1]}))
+        vec = path_to_vec(f"{args.filename}")
         # read theme
-        theme = pluck_theme_from_colors(conf, num_colors=4)
+        conf = pluck_colors(vec)
+        theme = pluck_theme_from_colors(conf)
         # normalize for representatino
-        print(get_theme_representation(theme))
+        print(theme.get("im").show())
+        print(theme.get("colors"))
     except ValueError:
         print("Error sourcing image")
         sys.exit(2)

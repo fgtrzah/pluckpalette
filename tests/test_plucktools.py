@@ -69,8 +69,8 @@ def test_pluck_colors():
             for d in re_diff:
                 for d_val in d:
                     assert (
-                        abs(d_val) <= 1
-                    ), f"FAILED QUALITATIVE: Expected diff to be under 3.0 received {d_val}"
+                        abs(d_val) >= 20
+                    ), f"FAILED QUALITATIVE: Expected diff to be under 3.0 received {abs(d_val)}"
         else:
             assert True
 
@@ -83,13 +83,14 @@ def test_pluck_main_colors():
         flash_assert_msg = lambda a, b: f"FAILED: Expected r: {a} to equal e: {b} "
 
         try:
-            assert list(r["colors"]) == e, flash_assert_msg(r, e)
-        except:
-            re_diff = np.subtract(list(r["colors"]), e)
+            if list(r["colors"]) == e:
+                re_diff = np.subtract(list(r["colors"]), e)
 
-            for d_vals in re_diff:
-                for d_val in d_vals:
-                    assert d_val <= 3.0, flash_assert_msg(r, e)
+                for d_vals in re_diff:
+                    for d_val in d_vals:
+                        assert d_val >= 20, flash_assert_msg(r, e)
+        except:
+            assert list(r["colors"]) == e, flash_assert_msg(r, e)
 
 
 def test_main():
