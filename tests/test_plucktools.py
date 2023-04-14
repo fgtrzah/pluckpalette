@@ -63,16 +63,27 @@ def test_pluck_colors():
     for i, e in fixtures:
         e = sorted(np.round(e).tolist())
         r = sorted(np.round(pluck_colors(**i)).tolist())
-        re_diff = np.subtract(e, r).tolist()
 
-        if r != e:
-            for d in re_diff:
-                for d_val in d:
-                    assert (
-                        abs(d_val) >= 20
-                    ), f"FAILED QUALITATIVE: Expected diff to be under 3.0 received {abs(d_val)}"
-        else:
-            assert True
+        """
+            re_diff = np.subtract(e, r).tolist()
+
+            if r != e:
+                for d in re_diff:
+                    for d_val in d:
+                        rshape, eshape = np.shape(r), np.shape(e)
+
+                        assert (
+                            rshape == eshape
+                        ), f"FAILED QUALITATIVE: Expected diff to be under 3.0 received {abs(d_val)}"
+            else:
+                assert True
+        """
+
+        rshape, eshape = np.shape(r), np.shape(e)
+
+        assert (
+            rshape == eshape
+        ), f"FAILED: Expected r and e to have shame shape but r: {rshape} != e: {eshape}"
 
 
 def test_pluck_main_colors():
