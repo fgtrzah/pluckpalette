@@ -1,4 +1,4 @@
-.. todo:: THIS IS SUPPOSED TO BE AN EXAMPLE. MODIFY IT ACCORDING TO YOUR NEEDS!
+
 
    The document assumes you are using a source repository service that promotes a
    contribution model similar to `GitHub's fork and pull request workflow`_.
@@ -12,10 +12,6 @@
 
    Please make sure to check the document having these assumptions in mind
    and update things accordingly.
-
-.. todo:: Provide the correct links/replacements at the bottom of the document.
-
-.. todo:: You might want to have a look on `PyScaffold's contributor's guide`_,
 
    especially if your project is open source. The text should be very similar to
    this template, but there are a few extra contents that you might decide to
@@ -151,8 +147,6 @@ Clone the repository
 
    to be able to import the package under development in the Python REPL.
 
-   .. todo:: if you are not using pre-commit, please remove the following item:
-
 #. Install |pre-commit|_::
 
     pip install pre-commit
@@ -181,8 +175,6 @@ Implement your changes
     git commit
 
    to record your changes in git_.
-
-   .. todo:: if you are not using pre-commit, please remove the following item:
 
    Please make sure to see the validation messages from |pre-commit|_ and fix
    any eventual issues.
