@@ -2,7 +2,7 @@ import pytest
 import warnings
 import numpy as np
 
-from pluckpalatte.plucktools import path_to_vec, pluck_colors, pluck_theme_from_colors
+from pluckpalatte.pluckutils import path_to_vec, pluck_colors, pluck_theme_from_colors
 
 warnings.filterwarnings("ignore")
 
