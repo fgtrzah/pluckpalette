@@ -23,6 +23,7 @@ def pluck_colors(vec, num_colors=4) -> NDArray:
 
 def pluck_theme_from_colors(color_list):
     n = len(color_list)
+    # TODO: refactor Image related configs
     im = Image.new("RGBA", (10 * n, 10))
     draw = ImageDraw.Draw(im, mode="RGBA")
     colors = []
@@ -30,7 +31,7 @@ def pluck_theme_from_colors(color_list):
     for idx, color in enumerate(color_list):
         color = tuple([int(x) for x in color])
         draw.rectangle(
-            [(100 * idx, 0), (100 * (idx + 1), 100 * (idx + 1))], fill=tuple(color)
+            [(10 * idx, 0), (10 * (idx + 1), 10 * (idx + 1))], fill=tuple(color)
         )
         colors.append(color)
 
@@ -39,7 +40,7 @@ def pluck_theme_from_colors(color_list):
 
 def get_theme_representation(colors_list):
     res = sorted(colors_list, key=lambda x: x[0])
-    return res
+    return [f"rgba{color}" for color in res]
 
 
 ARG_DESC = """
@@ -53,18 +54,17 @@ ARG_DESC = """
 
 def validate_file(f):
     if not os.path.exists(f):
-        # Argparse uses the ArgumentTypeError to give a rejection message like:
-        # error: argument input: x does not exist
         raise argparse.ArgumentTypeError("{0} does not exist".format(f))
     return f
 
 
 def get_parsed_args():
     """
-    TODO: change design to utilize
-    args obj model -> docstring
-    dont need to over-engineer in
-    favor of reduced bloat
+    TODO:
+        change design to utilize
+        args obj model -> docstring
+        dont need to over-engineer in
+        favor of reduced bloat
     """
     parser = argparse.ArgumentParser(
         description=ARG_DESC, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -100,7 +100,7 @@ def main():
         # read theme
         conf = pluck_colors(vec)
         theme = pluck_theme_from_colors(conf)
-        # normalize for representatino
+        # normalize for representation
         print(theme.get("im").show())
         print(theme.get("colors"))
     except ValueError:
