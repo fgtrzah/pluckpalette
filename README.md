@@ -15,9 +15,9 @@ CLI tool that returns dominant colors given a local path to an image or url.
 - [artwork](#artwork)
 - [misc notes](#misc-notes)
 
-#### Demo
+##### Demo
 
-<img alt="Welcome to VHS" src="https://github.com/figtreez/pluckpalette/tests/data/demo.gif" width="600" />
+<img alt="Demo" src="https://github.com/figtreez/pluck-palette/blob/main/tests/data/demo.gif?raw=true" width="600" />
 
 #### Setup
 
