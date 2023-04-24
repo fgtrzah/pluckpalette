@@ -17,7 +17,7 @@ CLI tool that returns dominant colors given a local path to an image or url.
 
 ##### Demo
 
-<img alt="Demo" src="https://github.com/figtreez/pluck-palette/blob/main/tests/data/demo.gif?raw=true" width="600" />
+<img alt="Demo" src="https://github.com/figtreez/pluck-palette/blob/main/tests/data/demo2.gif?raw=true" width="600" />
 
 #### Setup
 

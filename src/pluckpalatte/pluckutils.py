@@ -6,6 +6,8 @@ from PIL import Image, ImageDraw
 from numpy import ndarray as NDArray
 from sklearn.cluster import KMeans
 
+from pluckpalatte.ansiiutils import colors_256, rgba_to_xterm
+
 
 def path_to_vec(path: str) -> NDArray:
     try:
@@ -35,7 +37,7 @@ def pluck_theme_from_colors(color_list):
         )
         colors.append(color)
 
-    return {"im": im, "colors": get_theme_representation(colors)}
+    return {"im": im, "colors": get_theme_representation(colors), "rawrgba": colors}
 
 
 def get_theme_representation(colors_list):
@@ -101,8 +103,11 @@ def main():
         conf = pluck_colors(vec)
         theme = pluck_theme_from_colors(conf)
         # normalize for representation
-        print(theme.get("im").show())
-        print(theme.get("colors"))
+        rgba_colors_from_theme = theme.get("rawrgba")
+        for c in rgba_colors_from_theme:
+            r, g, b, _a = list(c)
+            print(f"\033[48;2;{r};{g};{b}m rgba{c} \033[0m")
+
     except ValueError:
         print("Error sourcing image")
         sys.exit(2)
