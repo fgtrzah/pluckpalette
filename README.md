@@ -2,7 +2,7 @@
 
 ![Tests](https://github.com/figtreez/pluckpalette/actions/workflows/tests.yml/badge.svg)
 
-## 🎨🪄 pluck-palette 🪄🎨
+## pluck-palette
 
 CLI tool that returns dominant colors given a local path to an image or url.
 
