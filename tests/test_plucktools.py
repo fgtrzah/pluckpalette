@@ -2,7 +2,11 @@ import pytest
 import warnings
 import numpy as np
 
-from pluckpalatte.pluckutils import path_to_vec, pluck_colors, pluck_theme_from_colors
+from pluckpalatte.pluckutils import (
+    path_to_vec,
+    pluck_colors,
+    pluck_theme_from_colors,
+)
 
 warnings.filterwarnings("ignore")
 
@@ -88,10 +92,29 @@ def test_pluck_main_colors():
             assert list(r["colors"]) == e, flash_assert_msg(r, e)
 
 
+def test_rendering():
+    try:
+        import sys
+
+        vec = path_to_vec("tests/data/01.png")
+        conf = pluck_colors(vec)
+        theme = pluck_theme_from_colors(conf)
+        rgba_colors_from_theme = theme.get("rawrgba")
+        res = ""
+
+        for c in rgba_colors_from_theme:
+            r, g, b, _ = list(c)
+            res += f"\033[48;2;{r};{g};{b}m rgba{c} \033[0m"
+        assert res
+    except ValueError:
+        sys.exit(2)
+
+
 def test_main():
     test_path_to_vec()
     test_pluck_colors()
     test_pluck_main_colors()
+    test_rendering()
 
 
 if __name__ == "__main__":

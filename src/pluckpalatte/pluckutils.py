@@ -89,25 +89,38 @@ def get_parsed_args():
     return parser.parse_args()
 
 
+def render_palette_from_img(filename, render_func):
+    try:
+        import sys
+
+        vec = path_to_vec(filename)
+        conf = pluck_colors(vec)
+        theme = pluck_theme_from_colors(conf)
+        rgba_colors_from_theme = theme.get("rawrgba")
+
+        for c in rgba_colors_from_theme:
+            r, g, b, _ = list(c)
+
+            if render_func:
+                render_func({"r": r, "g": g, "b": b, "c": c})
+            else:
+                print(f"\033[48;2;{r};{g};{b}m rgba{c} \033[0m")
+    except:
+        sys.exit(2)
+
+
 def main():
     try:
         import sys
 
-        # get cli args
         args = get_parsed_args()
-        # translate path to vector
-        vec = path_to_vec(f"{args.filename}")
-        # read theme
-        conf = pluck_colors(vec)
-        theme = pluck_theme_from_colors(conf)
-        # normalize for representation
-        rgba_colors_from_theme = theme.get("rawrgba")
-        for c in rgba_colors_from_theme:
-            r, g, b, _a = list(c)
-            print(f"\033[48;2;{r};{g};{b}m rgba{c} \033[0m")
-
-    except ValueError:
-        print("Error sourcing image")
+        render_palette_from_img(
+            args.filename,
+            lambda x: print(
+                f"\033[48;2;{x['r']};{x['g']};{x['b']}m rgba{x['c']} \033[0m"
+            ),
+        )
+    except:
         sys.exit(2)
 
 
