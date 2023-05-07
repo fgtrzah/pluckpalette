@@ -1,6 +1,6 @@
-<!-- #### Status
+#### Status
 
-![Tests](https://github.com/figtreez/pluckpalette/actions/workflows/tests.yml/badge.svg) -->
+![Tests](https://github.com/figtreez/pluck-palette/actions/workflows/tests.yml/badge.svg)
 
 ## pluck-palette
 
