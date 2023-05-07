@@ -6,8 +6,6 @@ from PIL import Image, ImageDraw
 from numpy import ndarray as NDArray
 from sklearn.cluster import KMeans
 
-from pluckpalatte.ansiiutils import colors_256, rgba_to_xterm
-
 
 def path_to_vec(path: str) -> NDArray:
     try:
