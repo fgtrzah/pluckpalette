@@ -47,12 +47,7 @@ Test images, prior art, and inspo.
 - [Primer Prism](https://primer.style/prism/)
 - [Artwork](#artwork)
 
-#### Artwork
+#### Art credits
 
 - [Micha Huigen](https://www.michahuigen.com/)
 - [The README Project](https://github.com/readme)
-
-#### Misc Notes
-
-- .venv is unnecessary as .tox/{env}/bin/activate already contains several different venvs
-- Have better badge management
