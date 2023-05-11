@@ -1,3 +1,4 @@
+from memory_profiler import profile
 import argparse, os
 import numpy as np
 
@@ -15,6 +16,7 @@ def path_to_vec(path: str) -> NDArray:
         return np.array(Image.open(path, mode="r", formats=["PNG"]))
 
 
+@profile
 def pluck_colors(vec, num_colors=4) -> NDArray:
     vec = vec.reshape(-1, num_colors)
     model = KMeans(n_clusters=num_colors, n_init="auto").fit(vec)
@@ -58,6 +60,7 @@ def validate_file(f):
     return f
 
 
+@profile
 def get_parsed_args():
     """
     TODO:
@@ -89,6 +92,7 @@ def get_parsed_args():
     return parser.parse_args()
 
 
+@profile
 def render_palette_from_img(filename, render_func):
     try:
         import sys
@@ -109,6 +113,7 @@ def render_palette_from_img(filename, render_func):
         sys.exit(2)
 
 
+@profile
 def main():
     try:
         import sys

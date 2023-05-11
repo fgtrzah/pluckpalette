@@ -1,3 +1,4 @@
+from memory_profiler import profile
 import pytest
 import warnings
 import numpy as np
@@ -9,6 +10,7 @@ from pluckpalatte.pluckutils import (
 )
 
 warnings.filterwarnings("ignore")
+
 
 """
 Fixtures
