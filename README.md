@@ -19,7 +19,7 @@ CLI tool that returns dominant colors given a local path to an image or url.
 
 <img alt="Demo" src="https://github.com/figtreez/pluck-palette/blob/main/tests/data/demo2.gif?raw=true" width="600" />
 
-#### Setup
+#### Setup tests
 
 ```bash
 #!/bin/bash
@@ -28,6 +28,16 @@ source .venv/bin/activate
 python3 -m pip install -r requirements.txt
 # `python3 -m tox -e {envname}` for specific tox pyenv environments (see tox.ini)
 python3 -m tox
+```
+
+#### Quick-start
+
+This assumes tests have been setup and .venv activated
+
+```bash
+#!/bin/bash
+python3 -m pip install -e .
+python3 src/pluckpalette/pluckutils.py -p tests/data/01.png
 ```
 
 #### Tools
