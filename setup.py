@@ -1,5 +1,5 @@
 """
-    Setup file for pluckpalatte.
+    Setup file for pluckpalette.
     Use setup.cfg to configure your project.
 
     This file was generated with PyScaffold 4.4.
