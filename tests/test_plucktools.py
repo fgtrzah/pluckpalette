@@ -1,9 +1,7 @@
-from memory_profiler import profile
-import pytest
 import warnings
 import numpy as np
 
-from pluckpalatte.pluckutils import (
+from pluckpalette.pluckutils import (
     path_to_vec,
     pluck_colors,
     pluck_theme_from_colors,
@@ -17,14 +15,14 @@ Fixtures
 """
 
 
-def prep_fixtures_path_to_vec(**kwargs):
+def prep_fixtures_path_to_vec():
     inputs = ["tests/data/01.png", "tests/data/02.png"]
     expected = [(608, 764, 4), (480, 484, 4)]
 
     return zip(inputs, expected)
 
 
-def prep_fixtures_pluck_colors(**kwargs):
+def prep_fixtures_pluck_colors():
     image_paths = ["tests/data/01.png", "tests/data/02.png"]
     inputs = []
 
@@ -37,7 +35,7 @@ def prep_fixtures_pluck_colors(**kwargs):
     return zip(inputs, expected)
 
 
-def prep_fixtures_pluck_main_colors(**kwargs):
+def prep_fixtures_pluck_main_colors():
     image_paths = ["tests/data/01.png", "tests/data/02.png"]
     inputs = []
 
@@ -95,9 +93,9 @@ def test_pluck_main_colors():
 
 
 def test_rendering():
-    try:
-        import sys
+    import sys
 
+    try:
         vec = path_to_vec("tests/data/01.png")
         conf = pluck_colors(vec)
         theme = pluck_theme_from_colors(conf)
