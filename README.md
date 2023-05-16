@@ -36,6 +36,7 @@ This assumes tests have been setup and .venv activated
 
 ```bash
 #!/bin/bash
+# image url https://github.com/figtreez/pluckpalette/blob/main/tests/data/02.png
 python3 -m pip install -e .
 pluckpalette -p tests/data/01.png
 ```
