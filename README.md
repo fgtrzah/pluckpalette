@@ -37,7 +37,7 @@ This assumes tests have been setup and .venv activated
 ```bash
 #!/bin/bash
 python3 -m pip install -e .
-python3 src/pluckpalette/pluckutils.py -p tests/data/01.png
+pluckpalette -p tests/data/01.png
 ```
 
 #### Tools
