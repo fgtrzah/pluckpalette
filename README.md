@@ -2,7 +2,7 @@
 
 ![Tests](https://github.com/figtreez/pluck-palette/actions/workflows/tests.yml/badge.svg)
 
-## pluck-palette
+## pluckpalette
 
 CLI tool that returns dominant colors given a local path to an image.
 
