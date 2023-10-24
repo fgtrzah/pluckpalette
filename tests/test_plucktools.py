@@ -92,11 +92,11 @@ def test_pluck_main_colors():
             assert list(r["colors"]) == e, flash_assert_msg(r, e)
 
 
-def test_rendering():
+def test_rendering(path = None):
     import sys
 
     try:
-        vec = path_to_vec("tests/data/01.png")
+        vec = path_to_vec(path or "tests/data/01.png")
         conf = pluck_colors(vec)
         theme = pluck_theme_from_colors(conf)
         rgba_colors_from_theme = theme.get("rawrgba")
@@ -105,9 +105,22 @@ def test_rendering():
         for c in rgba_colors_from_theme:
             r, g, b, _ = list(c)
             res += f"\033[48;2;{r};{g};{b}m rgba{c} \033[0m"
+        print(res)
         assert res
     except ValueError:
-        sys.exit(2)
+        print(path)
+        sys.exit()
+
+
+def test_bulk():
+    import os
+
+    for fp in os.listdir('tests/data'):
+        if ".gif" not in fp:
+            fsp = f"tests/data/{fp}"
+            test_rendering(fsp)
+
+    assert True
 
 
 def test_main():
@@ -115,6 +128,7 @@ def test_main():
     test_pluck_colors()
     test_pluck_main_colors()
     test_rendering()
+    test_bulk()
 
 
 if __name__ == "__main__":
