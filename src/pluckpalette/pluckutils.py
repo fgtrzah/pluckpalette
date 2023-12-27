@@ -128,6 +128,7 @@ def main():
 
             for f in Path(dir).iterdir():
                 if os.path.isfile(f):
+                    print('Processing: ', f)
                     render_palette_from_img(
                         f,
                         lambda x: print(
