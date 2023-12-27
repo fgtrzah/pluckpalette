@@ -18,10 +18,10 @@ CLI tool that returns dominant colors given a local path to an image.
 ##### Demo
 
 Single file processing
-<img alt="Demo" src="https://github.com/fgtrzah/pluck-palette/blob/main/tests/data/demo2.gif?raw=true" width="600" />
+<img alt="Demo" src="https://github.com/fgtrzah/pluckpalette/blob/main/tests/data/demo2.gif?raw=true" width="600" />
 
 Flattened directory bulk
-<img alt="Demo" src="https://github.com/fgtrzah/pluck-palette/blob/main/tests/data/demoz.gif?raw=true" width="300" />
+<img alt="Demo" src="https://github.com/fgtrzah/pluckpalette/blob/main/tests/data/demoz.gif?raw=true" width="300" />
 
 #### Setup tests
 
