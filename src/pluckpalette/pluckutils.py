@@ -1,4 +1,4 @@
-import argparse, os
+import argparse, os, sys
 import numpy as np
 
 from pathlib import Path, PurePath
@@ -75,7 +75,16 @@ def get_parsed_args():
         dest="filename",
         required=False,
         type=validate_file,
-        help="input file",
+        help="input file path",
+        metavar="FILE",
+    )
+    parser.add_argument(
+        "-d",
+        "--dir",
+        dest="dir",
+        required=False,
+        type=validate_file,
+        help="input directory containing flattened list of files",
         metavar="FILE",
     )
     parser.add_argument(
@@ -83,7 +92,7 @@ def get_parsed_args():
         type=str,
         default=None,
         required=False,
-        help="Url to image",
+        help="Url pointing to image",
     )
 
     return parser.parse_args()
@@ -91,12 +100,11 @@ def get_parsed_args():
 
 def render_palette_from_img(filename, render_func):
     try:
-        import sys
 
         vec = path_to_vec(filename)
         conf = pluck_colors(vec)
         theme = pluck_theme_from_colors(conf)
-        rgba_colors_from_theme = theme.get("rawrgba")
+        rgba_colors_from_theme = theme.get("rawrgba") or []
 
         for c in rgba_colors_from_theme:
             r, g, b, _ = list(c)
@@ -111,15 +119,32 @@ def render_palette_from_img(filename, render_func):
 
 def main():
     try:
-        import sys
-
         args = get_parsed_args()
-        render_palette_from_img(
-            args.filename,
-            lambda x: print(
-                f"\033[48;2;{x['r']};{x['g']};{x['b']}m rgba{x['c']} \033[0m"
-            ),
-        )
+        filename = args.filename
+        dir = args.dir
+
+        if dir and os.path.isdir(dir) \
+            and os.path.exists(dir):
+
+            for f in Path(dir).iterdir():
+                if os.path.isfile(f):
+                    render_palette_from_img(
+                        f,
+                        lambda x: print(
+                            f"\033[48;2;{x['r']};{x['g']};{x['b']}m rgba{x['c']} \033[0m"
+                        ),
+                    )
+
+
+        if filename \
+            and os.path.isfile(filename) \
+            and os.path.exists(filename):
+            render_palette_from_img(
+                args.filename,
+                lambda x: print(
+                    f"\033[48;2;{x['r']};{x['g']};{x['b']}m rgba{x['c']} \033[0m"
+                ),
+            )
     except:
         sys.exit(2)
 
